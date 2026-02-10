@@ -71,7 +71,7 @@ export const InstallPage: React.FC = () => {
           justifyContent="center"
           spacing={0}
           sx={{
-            width: "100%",
+            width: "auto",
             minWidth: 0,
             px: 0.5,
           }}
@@ -221,6 +221,9 @@ export const InstallPage: React.FC = () => {
                   alignItems: "center",
                 },
                 "& .MuiTab-root": {
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   px: { xs: 0.5, sm: 2 },
                   minWidth: 0,
                 },
