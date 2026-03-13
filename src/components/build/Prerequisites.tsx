@@ -11,7 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { InfoOutlined, Terminal, GitHub, Settings } from "@mui/icons-material";
-import data from "../../json/build.json";
+import { build } from "@i18n";
 
 const iconMap: Record<string, React.ReactNode> = {
   Terminal: <Terminal />,
@@ -36,7 +36,7 @@ export const Prerequisites: React.FC = () => {
         1. Prerequisites
       </Typography>
       <List disablePadding>
-        {data.prerequisites.map((item, i) => (
+        {build.prerequisites.map((item, i) => (
           <ListItem
             key={i}
             sx={{

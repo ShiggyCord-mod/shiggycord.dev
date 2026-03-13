@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { GitHub, Favorite, Security } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import content from "../../json/layout.json";
+import { layout } from "@i18n";
 
 const DiscordIcon = memo(() => (
   <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
@@ -115,31 +115,31 @@ export const Footer: React.FC = memo(() => {
 
   const footerSections = useMemo(
     () =>
-      content.footer.sections.map((section) => (
+      layout.footer.sections.map((section) => (
         <FooterSection key={section.title} section={section} />
       )),
-    [content.footer.sections],
+    [layout.footer.sections],
   );
 
   const socialIcons = useMemo(
     () => [
       {
         key: "github",
-        href: content.links.github_page,
+        href: layout.links.github_page,
         icon: <GitHub fontSize="small" />,
         bgColor: alpha(theme.palette.text.primary, 0.05),
         hoverColor: alpha(theme.palette.primary.main, 0.1),
       },
       {
         key: "discord",
-        href: content.links.discord,
+        href: layout.links.discord,
         icon: <DiscordIcon />,
         bgColor: alpha("#5865F2", 0.1),
         hoverColor: alpha("#5865F2", 0.2),
         iconColor: "#5865F2",
       },
     ],
-    [content.links.github_page, content.links.discord, theme],
+    [layout.links.github_page, layout.links.discord, theme],
   );
 
   const privacyButtonStyle = useMemo(
@@ -159,9 +159,9 @@ export const Footer: React.FC = memo(() => {
 
   const footerMetadata = useMemo(
     () => ({
-      copyright: `© ${currentYear} ${content.brand.copyRight}`,
-      affiliation: content.brand.affiliation,
-      madeWith: content.footer.madeWith,
+      copyright: `© ${currentYear} ${layout.brand.copyRight}`,
+      affiliation: layout.brand.affiliation,
+      madeWith: layout.footer.madeWith,
     }),
     [currentYear],
   );
@@ -183,10 +183,10 @@ export const Footer: React.FC = memo(() => {
               sx={{ textAlign: { xs: "center", md: "left" }, maxWidth: 300 }}
             >
               <Typography variant="h6" sx={brandNameStyle}>
-                {content.brand.name}
+                {layout.brand.name}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                {content.brand.description}
+                {layout.brand.description}
               </Typography>
 
               <Stack

@@ -22,7 +22,7 @@ import {
   ArrowForward,
   InfoOutlined,
 } from "@mui/icons-material";
-import data from "../../json/install.json";
+import { install } from "@i18n";
 
 export const BundleInjection: React.FC<{ isRecommended?: boolean }> = ({
   isRecommended,
@@ -36,7 +36,7 @@ export const BundleInjection: React.FC<{ isRecommended?: boolean }> = ({
     [theme.palette.primary.main],
   );
 
-  const { bundleUrl, kettuUrl, guideSteps, ui } = useMemo(() => data.ios, []);
+  const { bundleUrl, kettuUrl, guideSteps, ui } = useMemo(() => install.ios, []);
 
   const handleCopy = useCallback(async () => {
     try {

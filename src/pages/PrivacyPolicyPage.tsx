@@ -9,8 +9,8 @@ import {
   useTheme,
 } from "@mui/material";
 import { Lock, Storage, Security } from "@mui/icons-material";
-import { Layout } from "../components/layout/Layout";
-import policyData from "../json/privacypolicy_page.json";
+import { Layout } from "@components/layout/Layout";
+import { privacypolicy_page } from "@i18n";
 
 const IconMap: { [key: string]: any } = {
   Lock: Lock,
@@ -43,7 +43,7 @@ const PolicySection = ({ title, icon: Icon, children }: any) => {
 };
 
 export const PrivacyPolicyPage: React.FC = () => {
-  const { header, sections, footer } = policyData;
+  const { header, sections, footer } = privacypolicy_page;
 
   return (
     <Layout>

@@ -11,11 +11,11 @@ import {
   alpha,
 } from "@mui/material";
 import { Rocket, Download, BugReport } from "@mui/icons-material";
-import { Layout } from "../components/layout/Layout";
-import { Prerequisites } from "../components/build/Prerequisites";
-import { BuildSteps } from "../components/build/BuildSteps";
-import { LocalDevelopment } from "../components/build/LocalDevelopment";
-import content from "../json/build_page.json";
+import { Layout } from "@components/layout/Layout";
+import { Prerequisites } from "@components/build/Prerequisites";
+import { BuildSteps } from "@components/build/BuildSteps";
+import { LocalDevelopment } from "@components/build/LocalDevelopment";
+import { build_page } from "@i18n";
 
 const DiscordIcon = (props: any) => (
   <SvgIcon
@@ -49,7 +49,7 @@ export const BuildPage: React.FC = () => {
                   letterSpacing: "-0.03em",
                 }}
               >
-                {content.hero_section.heading}
+                {build_page.hero_section.heading}
               </Typography>
               <Typography
                 variant="h5"
@@ -60,7 +60,7 @@ export const BuildPage: React.FC = () => {
                   fontWeight: 400,
                 }}
               >
-                {content.hero_section.subheading}
+                {build_page.hero_section.subheading}
               </Typography>
 
               <Stack
@@ -80,13 +80,13 @@ export const BuildPage: React.FC = () => {
                     textTransform: "none",
                   }}
                 >
-                  {content.hero_section.buttons.get_started}
+                  {build_page.hero_section.buttons.get_started}
                 </Button>
                 <Button
                   variant="contained"
                   size="large"
                   startIcon={<Download />}
-                  href={content.external_links.releases}
+                  href={build_page.external_links.releases}
                   sx={{
                     borderRadius: "100px",
                     px: 4,
@@ -101,7 +101,7 @@ export const BuildPage: React.FC = () => {
                     },
                   }}
                 >
-                  {content.hero_section.buttons.download_prebuilt}
+                  {build_page.hero_section.buttons.download_prebuilt}
                 </Button>
               </Stack>
             </Box>
@@ -117,7 +117,7 @@ export const BuildPage: React.FC = () => {
                 variant="h6"
                 sx={{ mb: 3, fontWeight: 700, opacity: 0.8 }}
               >
-                {content.resources_support.heading}
+                {build_page.resources_support.heading}
               </Typography>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
@@ -130,7 +130,7 @@ export const BuildPage: React.FC = () => {
                     <DiscordIcon sx={{ fontSize: "1.4rem !important" }} />
                   }
                   variant="contained"
-                  href={content.external_links.discord_invite}
+                  href={build_page.external_links.discord_invite}
                   sx={{
                     borderRadius: "100px",
                     bgcolor: "#5865F2",
@@ -140,16 +140,16 @@ export const BuildPage: React.FC = () => {
                     py: 1.2,
                   }}
                 >
-                  {content.resources_support.buttons.join_discord}
+                  {build_page.resources_support.buttons.join_discord}
                 </Button>
                 <Button
                   fullWidth
                   startIcon={<BugReport />}
                   variant="outlined"
-                  href={content.external_links.github_issues}
+                  href={build_page.external_links.github_issues}
                   sx={{ borderRadius: "100px", textTransform: "none", py: 1.2 }}
                 >
-                  {content.resources_support.buttons.report_issue}
+                  {build_page.resources_support.buttons.report_issue}
                 </Button>
               </Stack>
             </Box>

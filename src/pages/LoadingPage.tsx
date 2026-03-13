@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Box, CircularProgress, Typography, keyframes } from "@mui/material";
-import loadingData from "../json/loading_page.json";
+import { loading_page } from "@i18n";
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: scale(0.95); }
@@ -22,7 +22,7 @@ export const LoadingPage: React.FC<LoadingPageProps> = React.memo(
     const roundedProgress = useMemo(() => Math.round(progress), [progress]);
 
     const progressSuffix = useMemo(
-      () => loadingData.status.progress_suffix,
+      () => loading_page.status.progress_suffix,
       [],
     );
 
@@ -103,7 +103,7 @@ export const LoadingPage: React.FC<LoadingPageProps> = React.memo(
       () => (
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h6" sx={titleStyle}>
-            {loadingData.status.title}
+            {loading_page.status.title}
           </Typography>
           <Typography variant="body2" sx={progressTextStyle}>
             {roundedProgress}

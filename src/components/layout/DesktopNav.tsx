@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Box, Button, useTheme, alpha, Tooltip } from "@mui/material";
 import { GitHub, Launch } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import content from "../../json/layout.json";
+import { layout } from "@i18n";
 
 interface DesktopNavProps {
   activePath: string;
@@ -29,7 +29,7 @@ const NavButton = React.memo(
 
         // The indicator bar
         "&::after": {
-          content: '""',
+          layout: '""',
           position: "absolute" as const,
           bottom: 6,
           left: "50%",
@@ -126,7 +126,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = React.memo(
     // Memoized navigation buttons to prevent re-rendering when activePath doesn't change
     const navigationButtons = useMemo(
       () =>
-        content.navigation.map((link) => {
+        layout.navigation.map((link) => {
           const isActive = activePath === link.href;
           return (
             <NavButton
@@ -137,16 +137,16 @@ export const DesktopNav: React.FC<DesktopNavProps> = React.memo(
             />
           );
         }),
-      [activePath, theme, content.navigation],
+      [activePath, theme, layout.navigation],
     );
 
     // Memoized GitHub button component
     const githubButton = useMemo(
       () => (
-        <Tooltip title={content.brand.github_button_text} arrow>
+        <Tooltip title={layout.brand.github_button_text} arrow>
           <Button
             component="a"
-            href={content.links.github_project}
+            href={layout.links.github_project}
             target="_blank"
             variant="contained"
             disableElevation
@@ -154,13 +154,13 @@ export const DesktopNav: React.FC<DesktopNavProps> = React.memo(
             endIcon={<Launch sx={launchIconStyle} />}
             sx={githubButtonStyle}
           >
-            {content.brand.github_button_text}
+            {layout.brand.github_button_text}
           </Button>
         </Tooltip>
       ),
       [
-        content.brand.github_button_text,
-        content.links.github_project,
+        layout.brand.github_button_text,
+        layout.links.github_project,
         githubButtonStyle,
         githubIconStyle,
         launchIconStyle,

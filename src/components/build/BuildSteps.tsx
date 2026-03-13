@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, IconButton, Stack, useTheme } from "@mui/material";
 import { ContentCopy, CheckCircle, Terminal } from "@mui/icons-material";
-import data from "../../json/build.json";
+import { build } from "@i18n";
 
 export const BuildSteps: React.FC = () => {
   const theme = useTheme();
@@ -69,7 +69,7 @@ export const BuildSteps: React.FC = () => {
           fontFamily: "monospace",
         }}
       >
-        {data.buildSteps.map((cmd, i) => (
+        {build.buildSteps.map((cmd, i) => (
           <Box
             key={i}
             sx={{

@@ -14,7 +14,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
-import content from "../../json/layout.json";
+import { layout } from "@i18n";
 
 export const Header: React.FC = () => {
   const location = useLocation();
@@ -197,8 +197,8 @@ export const Header: React.FC = () => {
                 <Fade in={isLogoLoaded} timeout={500}>
                   <Box
                     component="img"
-                    src={content.brand.logoUrl}
-                    alt={`${content.brand.name} Logo`}
+                    src={layout.brand.logoUrl}
+                    alt={`${layout.brand.name} Logo`}
                     onLoad={() => setIsLogoLoaded(true)}
                     sx={{
                       ...logoImageStyle,
@@ -210,7 +210,7 @@ export const Header: React.FC = () => {
               </Box>
 
               <Box component="span" sx={brandNameStyle}>
-                {content.brand.name}
+                {layout.brand.name}
               </Box>
             </Box>
 

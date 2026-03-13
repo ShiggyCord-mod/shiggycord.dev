@@ -8,8 +8,8 @@ import {
   keyframes,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Layout } from "../components/layout/Layout";
-import notFoundData from "../json/notfound_page.json";
+import { Layout } from "@components/layout/Layout";
+import { notfound_page } from "@i18n";
 
 // Gentle bobbing animation for Shiggy
 const float = keyframes`
@@ -20,7 +20,7 @@ const float = keyframes`
 
 export const NotFoundPage: React.FC = () => {
   const theme = useTheme();
-  const { image, content, actions } = notFoundData;
+  const { image, content, actions } = notfound_page;
 
   return (
     <Layout>

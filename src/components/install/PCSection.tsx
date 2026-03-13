@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ArrowForward, Computer, Apps } from "@mui/icons-material";
-import data from "../../json/install.json";
+import { install } from "@i18n";
 
 export const PCSection: React.FC<{ isRecommended?: boolean }> = React.memo(
   ({ isRecommended }) => {
@@ -21,7 +21,7 @@ export const PCSection: React.FC<{ isRecommended?: boolean }> = React.memo(
       [theme.palette.primary.main],
     );
 
-    const { clients, apps, ui } = useMemo(() => data.pcSection, []);
+    const { clients, apps, ui } = useMemo(() => install.pcSection, []);
 
     const userAgentInfo = useMemo(() => {
       const userAgent = navigator.userAgent;

@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import { Download, Security, Speed, Settings } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { Layout } from "../components/layout/Layout";
-import homeData from "../json/home_page.json";
+import { Layout } from "@components/layout/Layout";
+import { home_page } from "@i18n";
 
 const DiscordIcon = () => (
   <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
@@ -109,7 +109,7 @@ ScreenshotCard.displayName = "ScreenshotCard";
 
 export const HomePage: React.FC = () => {
   const theme = useTheme();
-  const { hero, showcase } = homeData;
+  const { hero, showcase } = home_page;
 
   // State for logo loading
   const [isLogoLoaded, setIsLogoLoaded] = useState(false);

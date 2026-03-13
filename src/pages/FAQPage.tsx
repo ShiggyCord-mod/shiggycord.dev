@@ -18,8 +18,8 @@ import {
   Info,
   Build,
 } from "@mui/icons-material";
-import { Layout } from "../components/layout/Layout";
-import faqData from "../json/faq_page.json";
+import { Layout } from "@components/layout/Layout";
+import { faq_page } from "@i18n";
 
 const FAQSection = memo(({ title, icon: Icon, children }: any) => {
   const theme = useTheme();
@@ -105,7 +105,7 @@ FaqItem.displayName = "FaqItem";
 
 export const FAQPage: React.FC = memo(() => {
   const theme = useTheme();
-  const { sections, header } = faqData;
+  const { sections, header } = faq_page;
   const inst = sections.installation.questions;
 
   const headerTitleStyle = useMemo(

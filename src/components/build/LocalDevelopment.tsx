@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import { BugReport } from "@mui/icons-material";
-import data from "../../json/build.json";
+import { build } from "@i18n";
 
 export const LocalDevelopment: React.FC = () => {
   const theme = useTheme();
@@ -31,7 +31,7 @@ export const LocalDevelopment: React.FC = () => {
       </Stack>
 
       <Stepper orientation="vertical" sx={{ ml: 1 }}>
-        {data.localDevelopment.map((step, index) => (
+        {build.localDevelopment.map((step, index) => (
           <Step key={index} active>
             <StepLabel>
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>

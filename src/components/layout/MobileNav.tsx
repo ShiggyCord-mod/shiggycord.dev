@@ -22,7 +22,7 @@ import {
   HelpOutline,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import content from "../../json/layout.json";
+import { layout } from "@i18n";
 
 const iconMap: Record<string, React.ReactNode> = {
   Home: <Home />,
@@ -121,7 +121,7 @@ export const MobileNav: React.FC<MobileNavProps> = React.memo(
 
     const navigationItems = useMemo(
       () =>
-        content.navigation.map((link, index) => (
+        layout.navigation.map((link, index) => (
           <NavListItem
             key={link.href}
             link={link}
@@ -131,7 +131,7 @@ export const MobileNav: React.FC<MobileNavProps> = React.memo(
             onClose={onClose}
           />
         )),
-      [content.navigation, open, activePath, onClose],
+      [layout.navigation, open, activePath, onClose],
     );
 
     const githubButtonStyle = useMemo(
@@ -166,7 +166,7 @@ export const MobileNav: React.FC<MobileNavProps> = React.memo(
       () => (
         <Button
           component="a"
-          href={content.links.github_project}
+          href={layout.links.github_project}
           target="_blank"
           variant="contained"
           fullWidth
@@ -174,12 +174,12 @@ export const MobileNav: React.FC<MobileNavProps> = React.memo(
           startIcon={<GitHub />}
           sx={githubButtonStyle}
         >
-          {content.brand.github_tooltip_text}
+          {layout.brand.github_tooltip_text}
         </Button>
       ),
       [
-        content.links.github_project,
-        content.brand.github_tooltip_text,
+        layout.links.github_project,
+        layout.brand.github_tooltip_text,
         githubButtonStyle,
       ],
     );

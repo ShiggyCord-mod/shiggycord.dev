@@ -2,17 +2,17 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Button, Box } from "@mui/material";
-import { theme } from "./theme/theme";
+import { theme } from "@theme/theme";
 
 // Pages
-import { LoadingPage } from "./pages/LoadingPage";
-import { HomePage } from "./pages/HomePage";
-import { InstallPage } from "./pages/InstallPage";
-import { BuildPage } from "./pages/BuildPage";
-import { ContributePage } from "./pages/ContributePage";
-import { FAQPage } from "./pages/FAQPage";
-import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import { LoadingPage } from "@pages/LoadingPage";
+import { HomePage } from "@pages/HomePage";
+import { InstallPage } from "@pages/InstallPage";
+import { BuildPage } from "@pages/BuildPage";
+import { ContributePage } from "@pages/ContributePage";
+import { FAQPage } from "@pages/FAQPage";
+import { PrivacyPolicyPage } from "@pages/PrivacyPolicyPage";
+import NotFoundPage from "@pages/NotFoundPage";
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);

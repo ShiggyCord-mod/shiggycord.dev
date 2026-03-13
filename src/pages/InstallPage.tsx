@@ -17,12 +17,12 @@ import {
   InstallMobile,
   Laptop,
 } from "@mui/icons-material";
-import { Layout } from "../components/layout/Layout";
-import { RootedAndroid } from "../components/install/RootedAndroid";
-import { NonRootedAndroid } from "../components/install/NonRootedAndroid";
-import { BundleInjection } from "../components/install/BundleInjection";
-import { PCSection } from "../components/install/PCSection";
-import installData from "../json/install_page.json";
+import { Layout } from "@components/layout/Layout";
+import { RootedAndroid } from "@components/install/RootedAndroid";
+import { NonRootedAndroid } from "@components/install/NonRootedAndroid";
+import { BundleInjection } from "@components/install/BundleInjection";
+import { PCSection } from "@components/install/PCSection";
+import { install_page } from "@i18n";
 
 export const InstallPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -45,13 +45,13 @@ export const InstallPage: React.FC = () => {
 
     if (isIOS) {
       setActiveTab(2);
-      setRecommendation(installData.tabs.ios.type);
+      setRecommendation(install_page.tabs.ios.type);
     } else if (isAndroid) {
       setActiveTab(0);
-      setRecommendation(installData.tabs.non_root.type);
+      setRecommendation(install_page.tabs.non_root.type);
     } else if (isPC) {
       setActiveTab(3);
-      setRecommendation(installData.tabs.pc.type);
+      setRecommendation(install_page.tabs.pc.type);
     }
   }, [deviceDetection]);
 
@@ -99,7 +99,7 @@ export const InstallPage: React.FC = () => {
                 letterSpacing: 0.5,
               }}
             >
-              {installData.labels.recommended_badge}
+              {install_page.labels.recommended_badge}
             </Typography>
           )}
         </Stack>
@@ -108,43 +108,44 @@ export const InstallPage: React.FC = () => {
     [recommendation],
   );
 
-  const tabsConfig = useMemo(
-    () => {
-      const { isIOS, isAndroid } = deviceDetection;
-      const isMobile = isIOS || isAndroid;
-      
-      return [
-        {
-          icon: <PhoneAndroid sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-          label: installData.tabs.non_root.label,
-          type: installData.tabs.non_root.type,
-        },
-        {
-          icon: <Terminal sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-          label: installData.tabs.root.label,
-          type: installData.tabs.root.type,
-        },
-        {
-          icon: <Apple sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-          label: installData.tabs.ios.label,
-          type: installData.tabs.ios.type,
-        },
-        ...(isMobile ? [] : [{
-          icon: <Laptop sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-          label: installData.tabs.pc.label,
-          type: installData.tabs.pc.type,
-        }]),
-      ];
-    },
-    [deviceDetection],
-  );
+  const tabsConfig = useMemo(() => {
+    const { isIOS, isAndroid } = deviceDetection;
+    const isMobile = isIOS || isAndroid;
+
+    return [
+      {
+        icon: <PhoneAndroid sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+        label: install_page.tabs.non_root.label,
+        type: install_page.tabs.non_root.type,
+      },
+      {
+        icon: <Terminal sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+        label: install_page.tabs.root.label,
+        type: install_page.tabs.root.type,
+      },
+      {
+        icon: <Apple sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+        label: install_page.tabs.ios.label,
+        type: install_page.tabs.ios.type,
+      },
+      ...(isMobile
+        ? []
+        : [
+            {
+              icon: <Laptop sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+              label: install_page.tabs.pc.label,
+              type: install_page.tabs.pc.type,
+            },
+          ]),
+    ];
+  }, [deviceDetection]);
 
   const activeTabContent = useMemo(() => {
     switch (activeTab) {
       case 0:
         return (
           <NonRootedAndroid
-            isRecommended={recommendation === installData.tabs.non_root.type}
+            isRecommended={recommendation === install_page.tabs.non_root.type}
           />
         );
       case 1:
@@ -152,13 +153,13 @@ export const InstallPage: React.FC = () => {
       case 2:
         return (
           <BundleInjection
-            isRecommended={recommendation === installData.tabs.ios.type}
+            isRecommended={recommendation === install_page.tabs.ios.type}
           />
         );
       case 3:
         return (
           <PCSection
-            isRecommended={recommendation === installData.tabs.pc.type}
+            isRecommended={recommendation === install_page.tabs.pc.type}
           />
         );
       default:
@@ -193,7 +194,7 @@ export const InstallPage: React.FC = () => {
               fontWeight={800}
               sx={{ textAlign: "center", fontSize: { xs: "2rem", md: "3rem" } }}
             >
-              {installData.header.title}
+              {install_page.header.title}
             </Typography>
           </Stack>
 

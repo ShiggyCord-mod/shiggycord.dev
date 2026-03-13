@@ -13,7 +13,7 @@ import {
   Chip,
 } from "@mui/material";
 import { ArrowForward, Smartphone, Security } from "@mui/icons-material";
-import data from "../../json/install.json";
+import { install } from "@i18n";
 
 export const NonRootedAndroid: React.FC<{ isRecommended?: boolean }> =
   React.memo(({ isRecommended }) => {
@@ -25,7 +25,7 @@ export const NonRootedAndroid: React.FC<{ isRecommended?: boolean }> =
     );
 
     const { description, items, downloadUrl, ui } = useMemo(
-      () => data.nonRootedAndroid,
+      () => install.nonRootedAndroid,
       [],
     );
 

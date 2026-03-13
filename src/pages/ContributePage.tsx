@@ -19,9 +19,9 @@ import {
   Groups,
   Hub,
 } from "@mui/icons-material";
-import { Layout } from "../components/layout/Layout";
+import { Layout } from "@components/layout/Layout";
 import { useTheme } from "@mui/material/styles";
-import content from "../json/contributors_page.json";
+import { contributors_page } from "@i18n";
 
 export const ContributePage: React.FC = () => {
   const theme = useTheme();
@@ -115,14 +115,14 @@ export const ContributePage: React.FC = () => {
                 letterSpacing: "-0.03em",
               }}
             >
-              {content.page_header.title}
+              {contributors_page.page_header.title}
             </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
               sx={{ textAlign: "center", maxWidth: 600 }}
             >
-              {content.page_header.description}
+              {contributors_page.page_header.description}
             </Typography>
           </Stack>
 
@@ -136,11 +136,11 @@ export const ContributePage: React.FC = () => {
             >
               <Groups color="primary" />
               <Typography variant="h5" fontWeight={700}>
-                {content.sections.core.title}
+                {contributors_page.sections.core.title}
               </Typography>
             </Stack>
             <Stack spacing={2}>
-              {content.coreTeam.map((dev, i) => (
+              {contributors_page.coreTeam.map((dev, i) => (
                 <DeveloperRow key={i} dev={dev} />
               ))}
             </Stack>
@@ -158,7 +158,7 @@ export const ContributePage: React.FC = () => {
             >
               <Hub sx={{ color: theme.palette.secondary.main }} />
               <Typography variant="h5" fontWeight={700}>
-                {content.sections.ecosystem.title}
+                {contributors_page.sections.ecosystem.title}
               </Typography>
             </Stack>
             <Typography
@@ -166,10 +166,10 @@ export const ContributePage: React.FC = () => {
               color="text.secondary"
               sx={{ mb: 3, px: 1 }}
             >
-              {content.sections.ecosystem.description}
+              {contributors_page.sections.ecosystem.description}
             </Typography>
             <Stack spacing={2}>
-              {content.ecosystemDevs.map((dev, i) => (
+              {contributors_page.ecosystemDevs.map((dev, i) => (
                 <DeveloperRow key={i} dev={dev} />
               ))}
             </Stack>
@@ -190,19 +190,19 @@ export const ContributePage: React.FC = () => {
               sx={{ color: theme.palette.error.main, mb: 2, fontSize: 32 }}
             />
             <Typography variant="h6" fontWeight={700} gutterBottom>
-              {content.cta.title}
+              {contributors_page.cta.title}
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
               sx={{ mb: 3, maxWidth: 450, mx: "auto" }}
             >
-              {content.cta.description}
+              {contributors_page.cta.description}
             </Typography>
             <Button
               variant="contained"
               disableElevation
-              href={content.cta.repo_url}
+              href={contributors_page.cta.repo_url}
               target="_blank"
               startIcon={<Code />}
               sx={{
@@ -213,7 +213,7 @@ export const ContributePage: React.FC = () => {
                 textTransform: "none",
               }}
             >
-              {content.cta.button_text}
+              {contributors_page.cta.button_text}
             </Button>
           </Paper>
         </Container>

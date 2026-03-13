@@ -17,7 +17,7 @@ import {
   CheckCircle,
   Warning,
 } from "@mui/icons-material";
-import data from "../../json/install.json";
+import { install } from "@i18n";
 
 export const RootedAndroid: React.FC = React.memo(() => {
   const theme = useTheme();
@@ -32,7 +32,7 @@ export const RootedAndroid: React.FC = React.memo(() => {
   );
 
   const { features, requirements, downloadUrl, ui } = useMemo(
-    () => data.rootedAndroid,
+    () => install.rootedAndroid,
     [],
   );
 
