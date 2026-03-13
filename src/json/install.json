@@ -33,10 +33,9 @@
   "ios": {
     "bundleUrl": "https://github.com/kmmiio99o/ShiggyCord/releases/latest/download/shiggycord.js",
     "kettuUrl": "https://github.com/C0C0B01/KettuTweak",
-    "btLoaderUrl": "https://github.com/CloudySn0w/BTLoader",
     "guideSteps": [
       "**Copy** the Bundle URL from this page.",
-      "Open your Discord client (KettuTweak or BTLoader).",
+      "Open your Discord client (KettuTweak).",
       "Navigate to **Settings** and find the **Kettu** section.",
       "Open it and Enable **Developer Settings**.",
       "Go back to Discord settings and Open **Developer** page.",
@@ -51,7 +50,6 @@
       "alert_body": "By default, these clients inject <strong>Kettu</strong>. You must manually replace the URL in the app settings with the ShiggyCord link above.",
       "guide_button": "How to inject ShiggyCord?",
       "get_kettu": "Get KettuTweak",
-      "get_btloader": "Get BTLoader",
       "dialog_title": "Injection Guide",
       "dialog_close": "Got it"
     }

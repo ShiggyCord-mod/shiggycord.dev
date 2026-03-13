@@ -36,10 +36,7 @@ export const BundleInjection: React.FC<{ isRecommended?: boolean }> = ({
     [theme.palette.primary.main],
   );
 
-  const { bundleUrl, kettuUrl, btLoaderUrl, guideSteps, ui } = useMemo(
-    () => data.ios,
-    [],
-  );
+  const { bundleUrl, kettuUrl, guideSteps, ui } = useMemo(() => data.ios, []);
 
   const handleCopy = useCallback(async () => {
     try {
@@ -233,15 +230,6 @@ export const BundleInjection: React.FC<{ isRecommended?: boolean }> = ({
           sx={kettuButtonStyle}
         >
           {ui.get_kettu}
-        </Button>
-        <Button
-          variant="outlined"
-          fullWidth
-          href={btLoaderUrl}
-          target="_blank"
-          sx={kettuButtonStyle}
-        >
-          {ui.get_btloader}
         </Button>
       </Stack>
 
