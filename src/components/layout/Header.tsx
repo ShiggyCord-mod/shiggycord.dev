@@ -8,8 +8,6 @@ import {
   alpha,
   IconButton,
   useMediaQuery,
-  CircularProgress,
-  Fade,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { DesktopNav } from "./DesktopNav";
@@ -38,102 +36,6 @@ export const Header: React.FC = () => {
     [isMobile, theme.zIndex.drawer],
   );
 
-  const toolbarStyle = useMemo(
-    () => ({
-      minHeight: 64,
-      px: { xs: 2, sm: 3 },
-      backgroundColor: alpha(theme.palette.background.paper, 0.8),
-      backdropFilter: "blur(20px)",
-      WebkitBackdropFilter: "blur(20px)",
-      borderRadius: isMobile ? "0 0 24px 24px" : "24px",
-      border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-      boxShadow: `0 8px 32px ${alpha(theme.palette.common.black, 0.05)}`,
-    }),
-    [isMobile, theme],
-  );
-
-  const logoBoxStyle = useMemo(
-    () => ({
-      width: 40,
-      height: 40,
-      borderRadius: "12px",
-      overflow: "hidden",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      bgcolor: alpha(theme.palette.primary.main, 0.1),
-      border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-    }),
-    [theme],
-  );
-
-  const logoImageStyle = useMemo(
-    () => ({
-      width: "85%",
-      height: "85%",
-      objectFit: "contain",
-    }),
-    [],
-  );
-
-  const brandNameStyle = useMemo(
-    () => ({
-      fontWeight: 800,
-      fontSize: "1.1rem",
-      color: theme.palette.text.primary,
-      letterSpacing: "-0.03em",
-    }),
-    [theme.palette.text.primary],
-  );
-
-  const hamburgerIconButtonStyle = useMemo(
-    () => ({
-      width: 44,
-      height: 44,
-      color: theme.palette.text.primary,
-      bgcolor: alpha(theme.palette.primary.main, 0.05),
-      position: "relative",
-    }),
-    [theme],
-  );
-
-  const hamburgerAnimationStates = useMemo(() => {
-    const baseStyle = {
-      width: 20,
-      height: 14,
-      display: "flex",
-      flexDirection: "column" as const,
-      justifyContent: "space-between",
-      "& span": {
-        display: "block",
-        width: "100%",
-        height: "2px",
-        bgcolor: "currentColor",
-        borderRadius: "2px",
-        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-        transformOrigin: "center",
-      },
-    };
-
-    if (mobileOpen) {
-      return {
-        ...baseStyle,
-        "& span:nth-of-type(1)": {
-          transform: "translateY(6px) rotate(45deg)",
-        },
-        "& span:nth-of-type(2)": {
-          opacity: 0,
-          transform: "scale(0)",
-        },
-        "& span:nth-of-type(3)": {
-          transform: "translateY(-6px) rotate(-45deg)",
-        },
-      };
-    }
-
-    return baseStyle;
-  }, [mobileOpen]);
-
   const desktopNavComponent = useMemo(() => {
     if (!isMobile) {
       return <DesktopNav activePath={activePath} />;
@@ -158,58 +60,76 @@ export const Header: React.FC = () => {
     <>
       <AppBar position="fixed" elevation={0} sx={appBarStyle}>
         <Container maxWidth="lg">
-          <Toolbar sx={toolbarStyle}>
+          <Toolbar
+            sx={(theme) => ({
+              minHeight: 64,
+              px: { xs: 2, sm: 3 },
+              backgroundColor: "background.paper",
+              borderRadius: isMobile ? "0 0 24px 24px" : "24px",
+              border: `1px solid ${theme.palette.divider}`,
+              borderColor: alpha(theme.palette.divider, 0.1),
+              boxShadow: `0 8px 32px ${alpha(theme.palette.common.black, 0.05)}`,
+            })}
+          >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={{ ...logoBoxStyle, position: "relative" }}>
-                {/* Logo Loading Animation */}
+              <Box
+                sx={(theme) => ({
+                  width: 40,
+                  height: 40,
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  bgcolor: alpha(theme.palette.primary.main, 0.1),
+                  border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+                  position: "relative",
+                })}
+              >
                 {!isLogoLoaded && (
-                  <Fade in={!isLogoLoaded} timeout={300}>
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        bgcolor: alpha(theme.palette.background.paper, 0.7),
-                        borderRadius: "12px",
-                        zIndex: 1,
-                      }}
-                    >
-                      <CircularProgress
-                        size={20}
-                        thickness={3}
-                        sx={{
-                          color: theme.palette.primary.main,
-                          animation: "pulse 1.5s ease-in-out infinite",
-                          "@keyframes pulse": {
-                            "0%, 100%": { opacity: 1 },
-                            "50%": { opacity: 0.5 },
-                          },
-                        }}
-                      />
-                    </Box>
-                  </Fade>
-                )}
-                <Fade in={isLogoLoaded} timeout={500}>
                   <Box
-                    component="img"
-                    src={layout.brand.logoUrl}
-                    alt={`${layout.brand.name} Logo`}
-                    onLoad={() => setIsLogoLoaded(true)}
                     sx={{
-                      ...logoImageStyle,
-                      opacity: isLogoLoaded ? 1 : 0,
-                      transition: "opacity 0.3s ease",
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
-                  />
-                </Fade>
+                  >
+                    <Box
+                      sx={(theme) => ({
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        border: `2px solid ${theme.palette.primary.main}`,
+                        borderTopColor: "transparent",
+                        animation: "spin 0.8s linear infinite",
+                        "@keyframes spin": {
+                          to: { transform: "rotate(360deg)" },
+                        },
+                      })}
+                    />
+                  </Box>
+                )}
+                <Box
+                  component="img"
+                  src={layout.brand.logoUrl}
+                  alt={`${layout.brand.name} Logo`}
+                  onLoad={() => setIsLogoLoaded(true)}
+                  sx={{
+                    width: "85%",
+                    height: "85%",
+                    objectFit: "contain",
+                    opacity: isLogoLoaded ? 1 : 0,
+                    transition: "opacity 0.3s ease",
+                  }}
+                />
               </Box>
 
-              <Box component="span" sx={brandNameStyle}>
+              <Box
+                component="span"
+                sx={{ fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.03em" }}
+              >
                 {layout.brand.name}
               </Box>
             </Box>
@@ -221,9 +141,46 @@ export const Header: React.FC = () => {
             {isMobile && (
               <IconButton
                 onClick={toggleMobileNav}
-                sx={hamburgerIconButtonStyle}
+                sx={(theme) => ({
+                  width: 44,
+                  height: 44,
+                  color: theme.palette.text.primary,
+                  bgcolor: alpha(theme.palette.primary.main, 0.05),
+                  position: "relative",
+                })}
               >
-                <Box sx={hamburgerAnimationStates}>
+                <Box
+                  sx={{
+                    width: 20,
+                    height: 14,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    "& span": {
+                      display: "block",
+                      width: "100%",
+                      height: "2px",
+                      bgcolor: "currentColor",
+                      borderRadius: "2px",
+                      transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transformOrigin: "center",
+                    },
+                    ...(mobileOpen
+                      ? {
+                          "& span:nth-of-type(1)": {
+                            transform: "translateY(6px) rotate(45deg)",
+                          },
+                          "& span:nth-of-type(2)": {
+                            opacity: 0,
+                            transform: "scale(0)",
+                          },
+                          "& span:nth-of-type(3)": {
+                            transform: "translateY(-6px) rotate(-45deg)",
+                          },
+                        }
+                      : {}),
+                  }}
+                >
                   <span />
                   <span />
                   <span />

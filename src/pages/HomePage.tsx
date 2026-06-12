@@ -21,89 +21,82 @@ const DiscordIcon = () => (
   </svg>
 );
 
-const ScreenshotCard = React.memo(({ url, title, icon: Icon, sx }: any) => {
-  const theme = useTheme();
-  return (
-    <Box
-      sx={{
-        perspective: "1000px",
-        width: "100%",
-        maxWidth: "220px",
-        transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-        position: "relative",
-        opacity: 1,
-        "&:hover": {
-          zIndex: 10,
-          "& .screenshot-inner": {
-            transform: "translateY(-20px) scale(1.08)",
-          },
-          "& .card-label": {
-            borderColor: alpha(theme.palette.primary.main, 0.5),
-            bgcolor: alpha(theme.palette.background.paper, 1),
-          },
+const ScreenshotCard = React.memo(({ url, title, icon: Icon, sx }: any) => (
+  <Box
+    sx={{
+      width: "100%",
+      maxWidth: "220px",
+      transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+      position: "relative",
+      "&:hover": {
+        "& .screenshot-inner": {
+          transform: "translateY(-20px) scale(1.08)",
         },
-        ...sx,
+        "& .card-label": {
+          borderColor: "primary.main",
+          bgcolor: "background.paper",
+        },
+      },
+      ...sx,
+    }}
+  >
+    <Box
+      className="screenshot-inner"
+      sx={{
+        transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Box
-        className="screenshot-inner"
-        sx={{
-          transition: "inherit",
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
+        className="card-label"
+        sx={(theme) => ({
+          display: "inline-flex",
           alignItems: "center",
-        }}
+          gap: 1,
+          mb: 2,
+          px: 2,
+          py: 0.8,
+          borderRadius: "20px",
+          bgcolor: alpha(theme.palette.background.paper, 0.8),
+          border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+          transition: "border-color 0.3s ease, background-color 0.3s ease",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        })}
       >
-        <Box
-          className="card-label"
+        <Icon sx={{ color: "primary.main", fontSize: 14 }} />
+        <Typography
+          variant="caption"
           sx={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 1,
-            mb: 2,
-            px: 2,
-            py: 0.8,
-            borderRadius: "20px",
-            bgcolor: alpha(theme.palette.background.paper, 0.8),
-            backdropFilter: "blur(8px)",
-            border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-            transition: "all 0.3s ease",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            fontWeight: 700,
+            fontSize: "0.65rem",
+            letterSpacing: "0.05em",
+            color: "text.primary",
+            textTransform: "uppercase",
           }}
         >
-          <Icon sx={{ color: "primary.main", fontSize: 14 }} />
-          <Typography
-            variant="caption"
-            sx={{
-              fontWeight: 700,
-              fontSize: "0.65rem",
-              letterSpacing: "0.05em",
-              color: "text.primary",
-              textTransform: "uppercase",
-            }}
-          >
-            {title}
-          </Typography>
-        </Box>
-
-        <Box
-          component="img"
-          src={url}
-          alt={title}
-          sx={{
-            width: "100%",
-            height: "auto",
-            display: "block",
-            borderRadius: "16px",
-            border: `1px solid ${alpha(theme.palette.divider, 0.15)}`,
-            boxShadow: "0 10px 40px -10px rgba(0,0,0,0.4)",
-          }}
-        />
+          {title}
+        </Typography>
       </Box>
+
+      <Box
+        component="img"
+        src={url}
+        alt={title}
+        sx={(theme) => ({
+          width: "100%",
+          height: "auto",
+          display: "block",
+          borderRadius: "16px",
+          border: `1px solid ${alpha(theme.palette.divider, 0.15)}`,
+          boxShadow: "0 10px 40px -10px rgba(0,0,0,0.4)",
+        })}
+      />
     </Box>
-  );
-});
+  </Box>
+));
 
 ScreenshotCard.displayName = "ScreenshotCard";
 

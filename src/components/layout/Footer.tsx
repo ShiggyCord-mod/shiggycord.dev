@@ -90,27 +90,17 @@ SocialIconButton.displayName = "SocialIconButton";
 export const Footer: React.FC = memo(() => {
   const theme = useTheme();
 
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
+  const currentYear = new Date().getFullYear();
 
   const footerContainerStyle = useMemo(
     () => ({
       p: { xs: 4, md: 5 },
       borderRadius: "32px",
       bgcolor: alpha(theme.palette.background.paper, 0.6),
-      backdropFilter: "blur(12px)",
       border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
       boxShadow: `0 -10px 40px ${alpha(theme.palette.common.black, 0.02)}`,
     }),
     [theme],
-  );
-
-  const brandNameStyle = useMemo(
-    () => ({
-      fontWeight: 900,
-      mb: 1,
-      color: theme.palette.text.primary,
-    }),
-    [theme.palette.text.primary],
   );
 
   const footerSections = useMemo(
@@ -142,21 +132,6 @@ export const Footer: React.FC = memo(() => {
     [layout.links.github_page, layout.links.discord, theme],
   );
 
-  const privacyButtonStyle = useMemo(
-    () => ({
-      bgcolor: alpha(theme.palette.primary.main, 0.08),
-      color: theme.palette.primary.main,
-      fontWeight: 700,
-      borderRadius: "100px",
-      textTransform: "none" as const,
-      "&:hover": {
-        bgcolor: theme.palette.primary.main,
-        color: "white",
-      },
-    }),
-    [theme],
-  );
-
   const footerMetadata = useMemo(
     () => ({
       copyright: `© ${currentYear} ${layout.brand.copyRight}`,
@@ -182,7 +157,10 @@ export const Footer: React.FC = memo(() => {
             <Box
               sx={{ textAlign: { xs: "center", md: "left" }, maxWidth: 300 }}
             >
-              <Typography variant="h6" sx={brandNameStyle}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 900, mb: 1, color: "text.primary" }}
+              >
                 {layout.brand.name}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
@@ -277,7 +255,17 @@ export const Footer: React.FC = memo(() => {
               variant="contained"
               disableElevation
               startIcon={<Security sx={{ fontSize: "1.1rem !important" }} />}
-              sx={privacyButtonStyle}
+              sx={(theme) => ({
+                bgcolor: alpha(theme.palette.primary.main, 0.08),
+                color: theme.palette.primary.main,
+                fontWeight: 700,
+                borderRadius: "100px",
+                textTransform: "none",
+                "&:hover": {
+                  bgcolor: theme.palette.primary.main,
+                  color: "white",
+                },
+              })}
             >
               Privacy Policy
             </Button>
