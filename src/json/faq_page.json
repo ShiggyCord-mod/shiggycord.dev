@@ -57,8 +57,8 @@
     },
     "other": {
       "title": "Other",
-      "question": "Do you recommend RPC apps like Kizzy or Metrolist?",
-      "answer_body": "No. These are considered self-bots and can lead to account disables. We recommend using Pano Scrobbler with the Multi Scrobbler plugin for the safest experience.",
+      "question": "Do you recommend RPC apps like Kizzy?",
+      "answer_body": "No. These are considered self-bots and can lead to account disables. We recommend using Pano Scrobbler with the Multi Scrobbler plugin for the safest experience or Metrolist Discord Integration.",
       "note": "Note: Metrolist only supports YouTube Music. For Tidal, Apple Music, etc., use Pano Scrobbler."
     }
   }
