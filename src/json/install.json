@@ -9,7 +9,7 @@
       "Rooted device",
       "Xposed Framework (Magisk, KernelSU, etc.)"
     ],
-    "downloadUrl": "https://github.com/kmmiio99o/ShiggyXposed/releases/latest",
+    "downloadUrl": "https://github.com/kmmiio99o/ShiggyXposed/releases/latest/download/app-release.apk",
     "ui": {
       "platform_title": "Rooted Android",
       "platform_subtitle": "System-level integration",
@@ -21,7 +21,7 @@
   "nonRootedAndroid": {
     "description": "Perfect for standard devices. Our manager app handles the patching and installation for you automatically.",
     "items": ["No root access required", "Easy installation process"],
-    "downloadUrl": "https://github.com/kmmiio99o/ShiggyManager/releases/latest",
+    "downloadUrl": "https://github.com/kmmiio99o/ShiggyManager/releases/latest/download/app-staging.apk",
     "ui": {
       "recommendation_label": "Recommended for your device",
       "platform_title": "Non-rooted Android",
