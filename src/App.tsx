@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  Suspense,
+} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, Button, Box } from "@mui/material";
@@ -6,13 +12,28 @@ import { theme } from "@theme/theme";
 
 // Pages
 import { LoadingPage } from "@pages/LoadingPage";
-import { HomePage } from "@pages/HomePage";
-import { InstallPage } from "@pages/InstallPage";
-import { BuildPage } from "@pages/BuildPage";
-import { ContributePage } from "@pages/ContributePage";
-import { FAQPage } from "@pages/FAQPage";
-import { PrivacyPolicyPage } from "@pages/PrivacyPolicyPage";
-import NotFoundPage from "@pages/NotFoundPage";
+
+const HomePage = React.lazy(() =>
+  import("@pages/HomePage").then((m) => ({ default: m.HomePage })),
+);
+const InstallPage = React.lazy(() =>
+  import("@pages/InstallPage").then((m) => ({ default: m.InstallPage })),
+);
+const BuildPage = React.lazy(() =>
+  import("@pages/BuildPage").then((m) => ({ default: m.BuildPage })),
+);
+const ContributePage = React.lazy(() =>
+  import("@pages/ContributePage").then((m) => ({ default: m.ContributePage })),
+);
+const FAQPage = React.lazy(() =>
+  import("@pages/FAQPage").then((m) => ({ default: m.FAQPage })),
+);
+const PrivacyPolicyPage = React.lazy(() =>
+  import("@pages/PrivacyPolicyPage").then((m) => ({
+    default: m.PrivacyPolicyPage,
+  })),
+);
+const NotFoundPage = React.lazy(() => import("@pages/NotFoundPage"));
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -69,7 +90,10 @@ export const App: React.FC = () => {
       if (isMounted) setLoading(false);
     }, 10000);
 
-    if (criticalImages.length === 0) {
+    let loadedCount = 0;
+    const totalTasks = criticalImages.length + 7;
+
+    if (totalTasks === 0) {
       if (isMounted) setLoading(false);
       return () => {
         clearTimeout(skipTimer);
@@ -77,20 +101,37 @@ export const App: React.FC = () => {
       };
     }
 
-    let loadedCount = 0;
-    const total = criticalImages.length;
-    const imagePromises: Promise<void>[] = [];
-
-    const handleImageComplete = () => {
+    const handleTaskComplete = () => {
       if (!isMounted) return;
       loadedCount++;
-      setProgress((loadedCount / total) * 100);
-      if (loadedCount === total) {
+      setProgress((loadedCount / totalTasks) * 100);
+      if (loadedCount === totalTasks) {
         setTimeout(() => {
           if (isMounted) setLoading(false);
         }, 600);
       }
     };
+
+    const allPromises: Promise<void>[] = [];
+
+    // Preload page chunks
+    const pageImports = [
+      import("@pages/HomePage"),
+      import("@pages/InstallPage"),
+      import("@pages/BuildPage"),
+      import("@pages/ContributePage"),
+      import("@pages/FAQPage"),
+      import("@pages/PrivacyPolicyPage"),
+      import("@pages/NotFoundPage"),
+    ];
+
+    pageImports.forEach((promise) => {
+      allPromises.push(
+        promise
+          .then(() => handleTaskComplete())
+          .catch(() => handleTaskComplete()),
+      );
+    });
 
     // Create image loading promises
     criticalImages.forEach((url) => {
@@ -99,21 +140,20 @@ export const App: React.FC = () => {
 
       const promise = new Promise<void>((resolve) => {
         img.onload = () => {
-          handleImageComplete();
+          handleTaskComplete();
           resolve();
         };
         img.onerror = () => {
-          handleImageComplete();
+          handleTaskComplete();
           resolve();
         };
       });
 
-      imagePromises.push(promise);
+      allPromises.push(promise);
     });
 
-    // Optional: Use Promise.all for better loading control
-    Promise.allSettled(imagePromises).then(() => {
-      if (isMounted && loadedCount === total) {
+    Promise.allSettled(allPromises).then(() => {
+      if (isMounted && loadedCount === totalTasks) {
         setTimeout(() => {
           if (isMounted) setLoading(false);
         }, 600);
@@ -129,15 +169,17 @@ export const App: React.FC = () => {
 
   const appRoutes = useMemo(
     () => (
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/install" element={<InstallPage />} />
-        <Route path="/build" element={<BuildPage />} />
-        <Route path="/contribute" element={<ContributePage />} />
-        <Route path="/faq" element={<FAQPage />} />
-        <Route path="/privacy" element={<PrivacyPolicyPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/install" element={<InstallPage />} />
+          <Route path="/build" element={<BuildPage />} />
+          <Route path="/contribute" element={<ContributePage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     ),
     [],
   );
