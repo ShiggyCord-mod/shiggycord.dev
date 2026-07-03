@@ -1,186 +1,66 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import {
   Typography,
   Button,
   Box,
   Stack,
   alpha,
-  useTheme,
   Chip,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ArrowForward, Computer, Apps } from "@mui/icons-material";
 import { install } from "@i18n";
 
+const gridButtonSx = (theme: any) => ({
+  borderRadius: "50px",
+  py: 1.2,
+  px: 3,
+  textTransform: "none" as const,
+  fontWeight: 700,
+  color: theme.palette.primary.main,
+  borderColor: alpha(theme.palette.primary.main, 0.3),
+  justifyContent: "space-between",
+});
+
+const chipSx = { mb: 2, fontWeight: 700, borderRadius: "8px", alignSelf: "flex-start" };
+
+const osChipSx = { height: 20, fontSize: "0.65rem", fontWeight: 800 };
+
+const RenderGrid = React.memo(
+  ({ items }: { items: { name: string; url: string }[] }) => (
+    <Grid container spacing={2}>
+      {items.map((item) => (
+        <Grid size={{ xs: 12, sm: 6 }} key={item.name}>
+          <Button
+            variant="outlined"
+            fullWidth
+            href={item.url}
+            target="_blank"
+            endIcon={<ArrowForward />}
+            sx={gridButtonSx}
+          >
+            {item.name}
+          </Button>
+        </Grid>
+      ))}
+    </Grid>
+  ),
+);
+
+RenderGrid.displayName = "RenderGrid";
+
 export const PCSection: React.FC<{ isRecommended?: boolean }> = React.memo(
   ({ isRecommended }) => {
-    const theme = useTheme();
+    const { clients, apps, ui } = install.pcSection;
 
-    const color = useMemo(
-      () => theme.palette.primary.main,
-      [theme.palette.primary.main],
-    );
-
-    const { clients, apps, ui } = useMemo(() => install.pcSection, []);
-
-    const userAgentInfo = useMemo(() => {
-      const userAgent = navigator.userAgent;
+    const { isWindows, isLinux, isMac } = useMemo(() => {
+      const ua = navigator.userAgent;
       return {
-        isWindows: userAgent.indexOf("Win") !== -1,
-        isLinux: userAgent.indexOf("Linux") !== -1,
-        isMac: userAgent.indexOf("Mac") !== -1,
+        isWindows: ua.indexOf("Win") !== -1,
+        isLinux: ua.indexOf("Linux") !== -1,
+        isMac: ua.indexOf("Mac") !== -1,
       };
     }, []);
-
-    const { isWindows, isLinux, isMac } = userAgentInfo;
-
-    const gridButtonStyle = useMemo(
-      () => ({
-        borderRadius: "50px",
-        py: 1.2,
-        px: 3,
-        textTransform: "none" as const,
-        fontWeight: 700,
-        color,
-        borderColor: alpha(color, 0.3),
-        justifyContent: "space-between",
-      }),
-      [color],
-    );
-
-    const chipStyle = useMemo(
-      () => ({
-        mb: 2,
-        fontWeight: 700,
-        borderRadius: "8px",
-        alignSelf: "flex-start",
-      }),
-      [],
-    );
-
-    const iconContainerStyle = useMemo(
-      () => ({
-        p: 1,
-        borderRadius: "8px",
-        display: "flex",
-        bgcolor: alpha(color, 0.1),
-      }),
-      [color],
-    );
-
-    const osRecommendationChipStyle = useMemo(
-      () => ({
-        height: 20,
-        fontSize: "0.65rem",
-        fontWeight: 800,
-      }),
-      [],
-    );
-
-    const renderGrid = useCallback(
-      (items: { name: string; url: string }[]) => (
-        <Grid container spacing={2}>
-          {items.map((item) => (
-            <Grid size={{ xs: 12, sm: 6 }} key={item.name}>
-              <Button
-                variant="outlined"
-                fullWidth
-                href={item.url}
-                target="_blank"
-                endIcon={<ArrowForward />}
-                sx={gridButtonStyle}
-              >
-                {item.name}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
-      ),
-      [gridButtonStyle],
-    );
-
-    const clientModsSection = useMemo(
-      () => (
-        <>
-          <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-            <Box sx={iconContainerStyle}>
-              <Computer sx={{ color, fontSize: 24 }} />
-            </Box>
-            <Box>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Typography variant="h6" fontWeight={700}>
-                  {ui.client_mods_title}
-                </Typography>
-                {isWindows && (
-                  <Chip
-                    label={ui.windows_recommendation}
-                    size="small"
-                    variant="outlined"
-                    color="primary"
-                    sx={osRecommendationChipStyle}
-                  />
-                )}
-              </Stack>
-              <Typography variant="caption" color="text.secondary">
-                {ui.client_mods_subtitle}
-              </Typography>
-            </Box>
-          </Stack>
-          <Box sx={{ mb: 4 }}>{renderGrid(clients)}</Box>
-        </>
-      ),
-      [
-        ui,
-        isWindows,
-        color,
-        iconContainerStyle,
-        osRecommendationChipStyle,
-        renderGrid,
-        clients,
-      ],
-    );
-
-    const standaloneAppsSection = useMemo(
-      () => (
-        <>
-          <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-            <Box sx={iconContainerStyle}>
-              <Apps sx={{ color, fontSize: 24 }} />
-            </Box>
-            <Box>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Typography variant="h6" fontWeight={700}>
-                  {ui.standalone_apps_title}
-                </Typography>
-                {(isLinux || isMac) && (
-                  <Chip
-                    label={ui.os_recommendation}
-                    size="small"
-                    variant="outlined"
-                    color="primary"
-                    sx={osRecommendationChipStyle}
-                  />
-                )}
-              </Stack>
-              <Typography variant="caption" color="text.secondary">
-                {ui.standalone_apps_subtitle}
-              </Typography>
-            </Box>
-          </Stack>
-          <Box sx={{ mb: 2 }}>{renderGrid(apps)}</Box>
-        </>
-      ),
-      [
-        ui,
-        isLinux,
-        isMac,
-        color,
-        iconContainerStyle,
-        osRecommendationChipStyle,
-        renderGrid,
-        apps,
-      ],
-    );
 
     return (
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
@@ -189,15 +69,79 @@ export const PCSection: React.FC<{ isRecommended?: boolean }> = React.memo(
             label={ui.recommendation_label}
             color="primary"
             size="small"
-            sx={chipStyle}
+            sx={chipSx}
           />
         )}
 
-        {/* Client Mods Section */}
-        {clientModsSection}
+        <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+          <Box
+            sx={(theme) => ({
+              p: 1,
+              borderRadius: "8px",
+              display: "flex",
+              bgcolor: alpha(theme.palette.primary.main, 0.1),
+            })}
+          >
+            <Computer sx={{ color: "primary.main", fontSize: 24 }} />
+          </Box>
+          <Box>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography variant="h6" fontWeight={700}>
+                {ui.client_mods_title}
+              </Typography>
+              {isWindows && (
+                <Chip
+                  label={ui.windows_recommendation}
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  sx={osChipSx}
+                />
+              )}
+            </Stack>
+            <Typography variant="caption" color="text.secondary">
+              {ui.client_mods_subtitle}
+            </Typography>
+          </Box>
+        </Stack>
+        <Box sx={{ mb: 4 }}>
+          <RenderGrid items={clients} />
+        </Box>
 
-        {/* Standalone Apps Section */}
-        {standaloneAppsSection}
+        <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+          <Box
+            sx={(theme) => ({
+              p: 1,
+              borderRadius: "8px",
+              display: "flex",
+              bgcolor: alpha(theme.palette.primary.main, 0.1),
+            })}
+          >
+            <Apps sx={{ color: "primary.main", fontSize: 24 }} />
+          </Box>
+          <Box>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography variant="h6" fontWeight={700}>
+                {ui.standalone_apps_title}
+              </Typography>
+              {(isLinux || isMac) && (
+                <Chip
+                  label={ui.os_recommendation}
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  sx={osChipSx}
+                />
+              )}
+            </Stack>
+            <Typography variant="caption" color="text.secondary">
+              {ui.standalone_apps_subtitle}
+            </Typography>
+          </Box>
+        </Stack>
+        <Box sx={{ mb: 2 }}>
+          <RenderGrid items={apps} />
+        </Box>
       </Box>
     );
   },
