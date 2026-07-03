@@ -6,60 +6,55 @@
   "sections": {
     "installation": {
       "title": "Installation & Compatibility",
-      "questions": {
-        "install": {
+      "questions": [
+        {
           "question": "How do I install ShiggyCord?",
-          "intro": "The method depends on your device:",
-          "non_rooted_label": "Non-Rooted Android:",
-          "non_rooted_text": "Use ",
-          "non_rooted_link_text": "Shiggy Manager",
-          "non_rooted_url": "https://github.com/kmmiio99o/ShiggyManager",
-          "non_rooted_suffix": ", designed for easy installation.",
-          "rooted_label": "Rooted Android:",
-          "rooted_text": "Use ",
-          "rooted_link_text": "ShiggyXposed",
-          "rooted_url": "https://github.com/kmmiio99o/ShiggyXposed",
-          "rooted_suffix": " to inject into Discord.",
-          "ios_note": "Note: We do not provide support for iOS due to lack of maintainers.",
-          "xposed_url": "https://github.com/kmmiio99o/ShiggyXposed",
-          "manager_url": "https://github.com/kmmiio99o/ShiggyManager"
+          "answer": "The method depends on your device:<br><br><ul><li><b>Non-Rooted Android:</b> Use <a href=\"https://github.com/kmmiio99o/ShiggyManager\">Shiggy Manager</a>, a tool based on Wintry Manager designed for easy installation.</li><li><b>Rooted Android:</b> Use <a href=\"https://github.com/kmmiio99o/ShiggyXposed\">ShiggyXposed</a>, a module based on KettuXposed that injects ShiggyCord into Discord.</li></ul><blockquote><b>Note:</b> We do not provide support for iOS due to a lack of devices and maintainers.</blockquote>"
         },
-        "version": {
-          "question": "Can ShiggyCord run on Android 8.1 and below?",
-          "answer": "No. For non-rooted users, it's not possible. For rooted users, finding a compatible LSPosed fork for older versions is difficult, and we won't be forking it for this purpose."
+        {
+          "question": "Can ShiggyCord run on Android versions below 8.1?",
+          "answer": "No. For non-rooted users, it's not possible. For rooted users, finding a compatible LSPosed fork for such old Android versions is difficult, and we will not be forking it specifically for this purpose."
         },
-        "rooting": {
+        {
           "question": "Do you provide support for rooting my device?",
-          "answer_prefix": "No. Rooting is complex and device-specific. We recommend checking ",
-          "link_label": "XDA Developers",
-          "link_url": "https://xdaforums.com/t/guide-2025-how-to-root-a-phone-a-complete-truthful-up-to-date-crap-free-and-no-bs-guide.4710038/",
-          "answer_suffix": " for a guide specific to your model."
+          "answer": "No. Rooting is a complex process specific to your device model. We cannot provide guidance on it. Please search for a dedicated tutorial for your specific device (for example, <a href=\"https://xdaforums.com/t/guide-2025-how-to-root-a-phone-a-complete-truthful-up-to-date-crap-free-and-no-bs-guide.4710038/\" target=\"_blank\" rel=\"noopener noreferrer\">this general guide on XDA</a>)."
         }
-      }
+      ]
     },
     "about": {
       "title": "About ShiggyCord",
       "questions": [
         {
-          "question": "What is the difference between ShiggyCord and others?",
-          "answer": "ShiggyCord focuses on a refreshed, user-friendly settings interface and utilizes 'Core Plugins' for a more integrated experience."
+          "question": "What is the difference between ShiggyCord and other Discord clients?",
+          "answer": "ShiggyCord focuses on a refreshed and user-friendly settings interface and makes greater use of \"Core Plugins\" for a more integrated experience."
         },
         {
           "question": "Is ShiggyCord affiliated with Kettu?",
-          "answer": "It's a fork that has evolved into its own independent project. It started as an unofficial build but is now separate."
+          "answer": "It's a fork, but ShiggyCord is now its own independent client. It started as an unofficial build of Kettu but has evolved into a separate project."
+        },
+        {
+          "question": "Can I somehow support ShiggyCord?",
+          "answer": "Yes. You can make a small donation on <a href=\"https://ko-fi.com/kmmiio99o\">ko-fi</a> page, or by contributing to the project itself, by making PRs or reporting <b>actual</b> ShiggyCord bugs."
         }
       ]
     },
     "legal": {
       "title": "Legal & Safety",
-      "question": "Is this against Discord's Terms of Service?",
-      "answer": "Yes. Like any third-party modification, it violates Discord's ToS. Use it at your own risk. While there are no known bans for client mods alone, safety is never 100% guaranteed."
+      "questions": [
+        {
+          "question": "Is using ShiggyCord against Discord's Terms of Service?",
+          "answer": "Yes. Like any third-party modification to the official Discord client, using ShiggyCord violates Discord's Terms of Service. Use it at your own risk.<br><br><blockquote><b>Note:</b> As of now, there are no known cases of users being banned solely for using client modifications like ShiggyCord. However, this does not guarantee safety.</blockquote>"
+        }
+      ]
     },
     "other": {
       "title": "Other",
-      "question": "Do you recommend RPC apps like Kizzy?",
-      "answer_body": "No. These are considered self-bots and can lead to account disables. We recommend using Pano Scrobbler with the Multi Scrobbler plugin for the safest experience or Metrolist Discord Integration.",
-      "note": "Note: Metrolist only supports YouTube Music. For Tidal, Apple Music, etc., use Pano Scrobbler."
+      "questions": [
+        {
+          "question": "Do you recommend any rpc like apps (Kizzy, Metrolist)?",
+          "answer": "No. They are considered self bots. I am not responsible for using them, but I also don't recommend them, user safety is on top, and maybe for now no one got banned, but many accounts got disabled. Please use <a href=\"https://kawaiidango.github.io/pano-scrobbler/\">Pano Scrobbler</a> with <a href=\"https://kmmiio99o.github.io/vd-plugins/multi-scrobbler/\">Multi Scrobbler</a> plugin, or Metrolist Discord integration with the plugin<br><span style=\"font-size:0.85rem;opacity:0.7\">Metrolist only supports YouTube Music. If you want to scrobble music from clients like Tidal, Apple Music or others, use Pano Scrobbler.</span>"
+        }
+      ]
     }
   }
 }
