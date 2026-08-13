@@ -9,11 +9,20 @@ import {
   useTheme,
   CircularProgress,
   Fade,
+  SxProps,
+  Theme,
 } from "@mui/material";
 import { Download, Security, Speed, Settings } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { Layout } from "@components/layout/Layout";
 import { home_page } from "@i18n";
+
+interface ScreenshotCardProps {
+  url: string;
+  title: string;
+  icon: React.ElementType;
+  sx?: SxProps<Theme> | any;
+}
 
 const DiscordIcon = () => (
   <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
@@ -21,35 +30,51 @@ const DiscordIcon = () => (
   </svg>
 );
 
-const ScreenshotCard = React.memo(({ url, title, icon: Icon, sx }: any) => (
-  <Box
-    sx={{
-      width: "100%",
-      maxWidth: "220px",
-      transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-      position: "relative",
-      "&:hover": {
-        "& .screenshot-inner": {
-          transform: "translateY(-20px) scale(1.08)",
-        },
-        "& .card-label": {
-          borderColor: "primary.main",
-          bgcolor: "background.paper",
-        },
-      },
-      ...sx,
-    }}
-  >
+const ScreenshotCard: React.FC<ScreenshotCardProps> = ({ url, title, icon: Icon, sx }) => {
+  const [active, setActive] = React.useState(false);
+  return (
     <Box
-      className="screenshot-inner"
+      tabIndex={0}
+      onClick={() => setActive((a) => !a)}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        const key = (e as any).key;
+        if (key === "Enter" || key === " ") {
+          e.preventDefault();
+          setActive((a) => !a);
+        }
+      }}
+      onBlur={() => setActive(false)}
+      className={active ? "active" : undefined}
       sx={{
+        width: "100%",
+        maxWidth: "220px",
         transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
         position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        // ensure the hovered/focused/active card appears above others
+        "&:hover, &:focus, &.active": {
+          zIndex: 9999,
+          "& .screenshot-inner": {
+            transform: "translateY(-20px) scale(1.08)",
+            zIndex: 9999,
+          },
+          "& .card-label": {
+            borderColor: "primary.main",
+            bgcolor: "background.paper",
+          },
+        },
+        ...sx,
       }}
     >
+      <Box
+        className="screenshot-inner"
+        sx={{
+          transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
       <Box
         className="card-label"
         sx={(theme) => ({
@@ -96,7 +121,8 @@ const ScreenshotCard = React.memo(({ url, title, icon: Icon, sx }: any) => (
       />
     </Box>
   </Box>
-));
+  );
+};
 
 ScreenshotCard.displayName = "ScreenshotCard";
 
